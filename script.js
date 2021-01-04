@@ -5,22 +5,20 @@ let nonCatsCounter = 0;
 
 for (var i = 0; i < items.length; i++) {
     items[i].addEventListener("click", function() {
-        this.classList.toggle("vald")
-    });
+        this.classList.toggle("vald");
+        var isCat = this.classList.contains("katt");
+        var isPicked = this.classList.contains("vald");
 
-    items[i].addEventListener("click", function() {
-        if (this.classList.contains("katt") & this.classList.contains("vald")) {
+        if (isCat & isPicked) {
             catsCounter++;
-        } else if (this.classList.contains("katt") & !this.classList.contains("vald")) {
+        } else if (isCat & !isPicked) {
             catsCounter--;
-        } else if (!this.classList.contains("katt") & this.classList.contains("vald")) {
+        } else if (!isCat & isPicked) {
             nonCatsCounter++;
-        } else if (!this.classList.contains("katt") & !this.classList.contains("vald")) {
+        } else if (!isCat & !isPicked) {
             nonCatsCounter--;
         }
-    });
 
-    items[i].addEventListener("click", function() {
         if (catsCounter == 3 & nonCatsCounter == 0) {
             document.querySelector('button').disabled = false;
         } else {
