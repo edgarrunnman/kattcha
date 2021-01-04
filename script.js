@@ -4,9 +4,9 @@ let catsCounter = 0;
 
 for (var i = 0; i < items.length; i++)
     if (items[i].classList.contains("katt"))
-        catsCounter++
+        catsCounter++;
 
-        let nonCatsCounter = 0;
+let nonCatsCounter = 0;
 
 for (var i = 0; i < items.length; i++)
     items[i].addEventListener("click", function() {
