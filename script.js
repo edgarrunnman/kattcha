@@ -1,26 +1,39 @@
 "use strict";
-const items = document.querySelectorAll('section > div');
-let catsCounter = 0;
+const items = Array.from(document.querySelectorAll('section > div'));
 
-for (var i = 0; i < items.length; i++)
-    if (items[i].classList.contains("katt"))
-        catsCounter++;
-
-let nonCatsCounter = 0;
-
-for (var i = 0; i < items.length; i++)
-    items[i].addEventListener("click", function() {
+items.forEach(function(item) {
+    item.addEventListener("click", function() {
         this.classList.toggle("vald");
-        var isCat = this.classList.contains("katt");
-        var isPicked = this.classList.contains("vald");
+        TryEnableSubmit();
+    })
+});
 
-        if (isCat & isPicked) catsCounter--;
-        else if (isCat & !isPicked) catsCounter++;
-        else if (!isCat & isPicked) nonCatsCounter++;
-        else if (!isCat & !isPicked) nonCatsCounter--;
+function filter(array, test, invert = false) {
+    let passed = [];
+    for (let element of array) {
+        debugger;
+        if (!invert) {
+            if (test(element)) {
+                passed.push(element);
+            }
+        } else {
+            if (!test(element)) {
+                passed.push(element);
 
-        if (catsCounter == 0 & nonCatsCounter == 0)
-            document.querySelector('button').disabled = false;
-        else
-            document.querySelector('button').disabled = true;
-    });
+            }
+        }
+    }
+    return passed;
+}
+
+function TryEnableSubmit() {
+    var targetItems = Array.from(document.querySelectorAll(".katt"));
+    var chosentargetItems = filter(targetItems, item => item.classList.contains("vald"));
+    var failItems = filter(items, item => item.classList.contains("katt"), true)
+    var chosenFailItems = filter(failItems, item => item.classList.contains("vald"));
+
+    if (chosentargetItems.length == targetItems.length && chosenFailItems == 0)
+        document.querySelector('button').disabled = false;
+    else
+        document.querySelector('button').disabled = true;
+}
